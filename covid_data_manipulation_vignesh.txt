@@ -1,0 +1,34 @@
+import pandas as pd
+import numpy as np
+try:
+    
+    df1 = pd.read_csv("D:\\covid_19_india.csv",parse_dates=['Date']).drop('Sno', axis=1) 
+    df1.rename(columns=({ 'Date': 'Report_Date'}),inplace=True)
+    
+    # first  -- Extract confirmed cases by state wise for each day.
+    pd.pivot_table(df1,values='Confirmed',index=['Report_Date'],columns=['State'],aggfunc={'Confirmed':np.sum},fill_value=0).to_csv('D:\\confirmed_report.csv')
+
+    # Second -- Create a report of total deaths state wise in the descending order
+    pd.pivot_table(df1,values='Deaths',index=['State'],aggfunc=np.sum,fill_value=0).sort_values('Deaths',axis=0,ascending=False).to_csv('D:\\death_report.csv')
+
+    # To Multi-Index based on Year / Month - Bifurcating Month wise -  year. 
+    df1['Report_month']=[x.strftime('%m') for x in df1['Report_Date'].tolist()]
+    df1['Report_year']=[x.strftime('%Y') for x in df1['Report_Date'].tolist()]
+    
+    # Third -- Create a report of consolidated data for all states by month.
+    # pd.pivot_table(df1,values=['Confirmed','Cured','Deaths'],columns=['State'],index=['Date'],aggfunc=np.sum,fill_value=0)
+    
+except OSError as err:
+    print("Exception  on File - ",err)
+    
+except Exception as err:
+    print("Exception hit  ",err)
+	
+# Instrunctions to Execute this File.
+
+# Paste the given file into D:\\ drive of your system
+# Ensure your D:\\ drive is privileged with write permission 
+# Ensure the Name of the csv file as - covid_19_india.csv
+# Once all these are fine., we may execute this file.
+# On  D:\\ we may find two files confirmed_report.csv for first requirement 
+# on  D:\\ another file is generated named death_report.csv - holds report for death counts 	
