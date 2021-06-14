@@ -1,0 +1,15 @@
+# Instrunctions to Execute this File.
+
+# Paste the given file into D:\\ drive of your system
+# Ensure your D:\\ drive is privileged with write permission 
+# Ensure the Name of the csv file as - covid_19_india.csv
+# Once all these are fine., we may execute this file.
+# On  D:\\ we may find two files confirmed_report.csv for first requirement 
+# on  D:\\ another file is generated named death_report.csv - holds report for death counts 	
+
+# Approach to Generate the consolidated report as given in (c) 
+# -- Create a report of consolidated data for all states by month.
+# 1. Get all the list of distinct states / distinct year-month and Multi-Index from tuple.
+# 2. Once Multi-Indexing is done., we have to pass the index to dataframe  as a parameter
+# 3. On Header Confirmed / Cured / Deaths should be brought in and supplied as values in pivot table and aggregate as sum.
+
